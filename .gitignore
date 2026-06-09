@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+shared_files/*
+!shared_files/.gitkeep
+连接二维码*.png
+build/
+dist/
+android/.gradle/
+android/app/build/
+*.spec
+release/
+FlashTransfer-分发包/
+FlashTransfer-分发包.zip
+.idea/
+.vscode/
+local.properties

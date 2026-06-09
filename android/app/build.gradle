@@ -1,0 +1,31 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.localdrop.flashtransfer"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.localdrop.flashtransfer"
+        minSdk 24
+        targetSdk 35
+        versionCode 3
+        versionName "2.1"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation "com.google.zxing:core:3.5.3"
+}
