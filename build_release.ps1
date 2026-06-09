@@ -9,9 +9,16 @@ $windowsExe = Join-Path $root "dist\FlashTransfer.exe"
 Set-Location $root
 
 python build_exe.py
+if ($LASTEXITCODE -ne 0) {
+    throw "Windows build failed with exit code $LASTEXITCODE"
+}
+
 Push-Location (Join-Path $root "android")
 try {
     gradle assembleDebug lintDebug
+    if ($LASTEXITCODE -ne 0) {
+        throw "Android build failed with exit code $LASTEXITCODE"
+    }
 } finally {
     Pop-Location
 }

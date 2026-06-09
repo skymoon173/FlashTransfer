@@ -11,6 +11,7 @@ android/app/build/
 release/
 FlashTransfer-分发包/
 FlashTransfer-分发包.zip
+FlashTransfer-release.zip
 .idea/
 .vscode/
 local.properties
