@@ -1,85 +1,75 @@
-# FlashTransfer / 闪传
+# FlashTransfer
 
-无需云服务的局域网文件传输工具，支持 Windows、Android、iPhone 和普通浏览器。
-
-文件只在当前 Wi-Fi 或热点中传输。每次启动会生成随机访问口令，支持多文件、文件夹、进度显示、二维码和设备自动发现。
+FlashTransfer 是一个局域网文件传输工具，支持 Windows、Android、iPhone
+和浏览器之间互传文件。文件只在本地网络中传输，不经过云端服务器。
 
 ## 功能
 
-- Windows 作为文件传输主机
-- Android 作为主机或客户端
-- Android 与 Android 自动发现连接
-- iPhone、电脑和其他设备通过浏览器连接
-- 上传、下载、删除、多文件和文件夹传输
-- Windows 与 Android 主机显示连接二维码
-- 单个文件最大 50 GB，Android 主机会检查剩余空间
+- Windows 与手机双向传输文件。
+- Android 设备可作为主机，让其他 Android 或 iPhone 连接。
+- 自动检测局域网 IP，并提供二维码连接。
+- 支持文件与文件夹上传、下载进度和大文件传输。
+- 自动发现同一局域网中的 FlashTransfer 主机。
 
-## 快速开始
-
-### Windows 源码运行
+## 快速运行
 
 需要 Python 3.10 或更高版本。
 
 ```powershell
-python -m pip install -r requirements-build.txt
-python server.py --hotspot
+python server.py
 ```
 
-手机连接同一 Wi-Fi 或电脑热点后，扫描二维码或打开终端显示的地址。
+程序启动后会显示本机访问地址和二维码。手机连接同一 Wi-Fi 或电脑热点后，
+使用浏览器打开该地址即可传输文件。
 
-### Android 构建
+## 构建
 
-需要 JDK 17+、Android SDK 和 Gradle。
+安装 Windows 构建依赖：
+
+```powershell
+python -m pip install -r requirements-build.txt
+```
+
+构建 Windows EXE：
+
+```powershell
+python build_exe.py
+```
+
+构建 Android APK：
 
 ```powershell
 cd android
 gradle assembleDebug
 ```
 
-APK 输出到 `android/app/build/outputs/apk/debug/app-debug.apk`。
-
-### Windows EXE 构建
-
-```powershell
-python build_exe.py
-```
-
-EXE 输出到 `dist/FlashTransfer.exe`。
-
-### 合规发行包
+构建完整发布包：
 
 ```powershell
 .\build_release.ps1
 ```
 
-该脚本会构建 Windows EXE 和 Android APK，并把 MIT 许可证、第三方声明及
-完整第三方许可证文本一起放入发行包。
+生成物统一放在 `release/`，源码仓库不提交 EXE、APK 或 ZIP。
 
-## Android 使用方式
+## 网络
 
-- 连接电脑或另一台 Android：点击“自动查找”。
-- Android 作为主机：点击“开启主机”，其他设备自动发现、扫码或打开地址。
-- Android 与 iPhone：Android 开启主机，iPhone 连接同一网络后扫码。
+- 文件传输默认使用 TCP `8765`。
+- 自动发现使用 UDP `8766`。
+- IP 地址在启动时自动检测，没有写死。
+- 使用 Windows 移动热点时通常会检测到 `192.168.137.1`。
+- 推荐使用 5 GHz Wi-Fi 或热点以获得更高速度。
 
-## 网络说明
+## 项目结构
 
-- IP 地址在运行时自动检测，没有写死。
-- Windows 移动热点通常使用 `192.168.137.1`，程序会优先推荐该地址。
-- 自动发现使用 UDP `8766`，文件传输默认使用 TCP `8765`。
-- 手机作为主机时，速度通常低于电脑主机。推荐使用 5 GHz Wi-Fi/热点并关闭省电模式。
+详见 [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)。
 
-## 安全说明
+## 安全
 
-- 服务仅监听当前设备网络接口，不会把文件上传到云端。
-- 连接地址包含每次启动随机生成的访问口令。
-- 请仅在可信局域网中使用，使用后停止主机服务。
+- 文件不会上传到云端。
+- 每次启动会生成随机访问令牌。
+- 请只在可信局域网中使用，使用完毕后停止主机服务。
 
-## 许可证与商用
+## 许可证
 
-本项目源码采用 [MIT License](LICENSE)，允许个人和商业使用、修改及分发。
-
-项目使用的第三方依赖也允许商业使用，但分发二进制文件时需要保留相应许可证与版权声明。详情见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
-
-## 免责声明
-
-本项目按原样提供，不附带任何保证。请在传输重要文件前保留备份。
+项目源码使用 [MIT License](LICENSE)。第三方依赖及二进制分发义务见
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 和 `licenses/`。

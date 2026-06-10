@@ -1,17 +1,31 @@
 __pycache__/
-*.pyc
+*.py[cod]
+
+# Runtime data
 shared_files/*
 !shared_files/.gitkeep
 连接二维码*.png
+
+# Build and release output
 build/
 dist/
+release/
 android/.gradle/
 android/app/build/
 *.spec
-release/
 FlashTransfer-分发包/
 FlashTransfer-分发包.zip
 FlashTransfer-release.zip
+
+# Temporary VoiceBridge tooling
+.voicebridge-*/
+*VoiceBridge*.bat
+*VoiceBridge*.ps1
+*VoiceBridge*.log
+Finalize-Projects.*
+Finalize-Projects.log
+
+# IDE and local configuration
 .idea/
 .vscode/
 local.properties

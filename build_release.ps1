@@ -30,6 +30,6 @@ Copy-Item -LiteralPath (Join-Path $root "LICENSE") -Destination $release -Force
 Copy-Item -LiteralPath (Join-Path $root "THIRD_PARTY_NOTICES.md") -Destination $release -Force
 Copy-Item -LiteralPath $licenses -Destination $release -Recurse -Force
 
-$zip = Join-Path $root "FlashTransfer-release.zip"
+$zip = Join-Path $release "FlashTransfer-release.zip"
 Compress-Archive -Path (Join-Path $release "*") -DestinationPath $zip -Force
 Write-Host "Release package created: $zip"
